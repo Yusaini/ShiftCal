@@ -16,14 +16,14 @@ import android.view.View;
 import de.nulide.shiftcal.logic.object.Shift;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
 import de.nulide.shiftcal.logic.object.WorkDay;
-import de.nulide.shiftcal.ui.CalendarDayDecorator;
+import de.nulide.shiftcal.ui.ShiftDayViewDecorator;
+import de.nulide.shiftcal.ui.TodayDayViewDecorator;
 
 public class CalendarActivity extends AppCompatActivity {
 
     public static ShiftCalendar sc;
 
     MaterialCalendarView calendar;
-    CalendarDayDecorator cdeco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class CalendarActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sc = new ShiftCalendar();
-        Shift f1 = new Shift("Frühschicht", "F1", Color.BLUE, sc);
-        Shift s1 = new Shift("Spätschicht", "S1", Color.RED, sc);
+        Shift f1 = new Shift("Frühschicht", "F1", Color.BLUE);
+        Shift s1 = new Shift("Spätschicht", "S1", Color.RED);
         sc.addShift(f1);
         sc.addShift(s1);
         sc.addWday(new WorkDay(CalendarDay.from(2019, 8, 26), s1));
@@ -61,10 +61,11 @@ public class CalendarActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        cdeco = new CalendarDayDecorator(sc);
         calendar = (MaterialCalendarView) findViewById(R.id.calendarView);
-        calendar.addDecorator(f1);
-        calendar.addDecorator(s1);
+        calendar.setDateSelected(CalendarDay.today(), true);
+        calendar.addDecorator(new ShiftDayViewDecorator(f1, sc));
+        calendar.addDecorator(new ShiftDayViewDecorator(s1, sc));
+        calendar.addDecorator(new TodayDayViewDecorator());
 
 
         //updateCalendar();

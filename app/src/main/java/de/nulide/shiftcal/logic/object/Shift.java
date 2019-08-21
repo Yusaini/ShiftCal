@@ -11,17 +11,15 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-public class Shift implements DayViewDecorator {
+public class Shift {
     private String name;
     private String short_name;
     private int color;
-    private ShiftCalendar shiftcalendar;
 
-    public Shift(String name, String short_name, int color, ShiftCalendar shiftCalendar) {
+    public Shift(String name, String short_name, int color) {
         this.name = name;
         this.short_name = short_name;
         this.color = color;
-        this.shiftcalendar = shiftCalendar;
     }
 
     public Shift(){
@@ -54,19 +52,6 @@ public class Shift implements DayViewDecorator {
         this.color = color;
     }
 
-    @Override
-    public boolean shouldDecorate(CalendarDay day) {
-        if(shiftcalendar.checkIfShift(day, this)){
-            return true;
-        }
-        return false;
-    }
 
-    @Override
-    public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(5, this.color));
-        view.addSpan(new StyleSpan(Typeface.BOLD));
-        view.addSpan(new RelativeSizeSpan(1.4f));
-    }
 }
 
