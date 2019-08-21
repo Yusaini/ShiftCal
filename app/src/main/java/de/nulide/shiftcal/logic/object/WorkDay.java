@@ -2,22 +2,23 @@ package de.nulide.shiftcal.logic.object;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WorkDay {
-    private CalendarDay date;
+public class WorkDay implements Serializable {
+    private CalendarDate date;
     private Shift shift;
 
-    public WorkDay(CalendarDay date, Shift shift) {
+    public WorkDay(CalendarDate date, Shift shift) {
         this.date = date;
         this.shift = shift;
     }
 
-    public CalendarDay getDate() {
+    public CalendarDate getDate() {
         return date;
     }
 
-    public void setDate(CalendarDay date) {
+    public void setDate(CalendarDate date) {
         this.date = date;
     }
 

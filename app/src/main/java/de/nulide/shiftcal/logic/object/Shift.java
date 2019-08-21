@@ -11,7 +11,9 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-public class Shift {
+import java.io.Serializable;
+
+public class Shift implements Serializable {
     private String name;
     private String short_name;
     private int color;

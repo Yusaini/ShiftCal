@@ -2,11 +2,12 @@ package de.nulide.shiftcal.logic.object;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class ShiftCalendar {
+public class ShiftCalendar implements Serializable {
 
     private LinkedList<WorkDay> calendar;
     private LinkedList<Shift> shifts;
