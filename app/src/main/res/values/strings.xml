@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ShiftCal</string>
+    <string name="title_activity_calendar">ShiftCal</string>
 </resources>
