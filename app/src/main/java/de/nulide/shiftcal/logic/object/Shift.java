@@ -1,16 +1,33 @@
 package de.nulide.shiftcal.logic.object;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.provider.CalendarContract;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 
-public class Shift {
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
+
+public class Shift implements DayViewDecorator {
     private String name;
     private String short_name;
-    private String color;
+    private int color;
+    private ShiftCalendar shiftcalendar;
 
-    public Shift(String name, String short_name, String color) {
+    public Shift(String name, String short_name, int color, ShiftCalendar shiftCalendar) {
         this.name = name;
         this.short_name = short_name;
         this.color = color;
+        this.shiftcalendar = shiftCalendar;
+    }
+
+    public Shift(){
+        this.name = "Error";
+        this.short_name = "err";
+        this.color = Color.BLACK;
     }
 
     public String getName() {
@@ -29,12 +46,27 @@ public class Shift {
         this.short_name = short_name;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean shouldDecorate(CalendarDay day) {
+        if(shiftcalendar.checkIfShift(day, this)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void decorate(DayViewFacade view) {
+        view.addSpan(new DotSpan(5, this.color));
+        view.addSpan(new StyleSpan(Typeface.BOLD));
+        view.addSpan(new RelativeSizeSpan(1.4f));
     }
 }
 

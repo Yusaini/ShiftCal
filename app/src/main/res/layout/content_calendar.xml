@@ -8,10 +8,12 @@
     tools:context=".CalendarActivity"
     tools:showIn="@layout/activity_calendar">
 
-    <CalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="58dp" />
+        app:mcv_showOtherDates="none"
+        app:mcv_selectionColor="#97be0e"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

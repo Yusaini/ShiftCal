@@ -1,5 +1,8 @@
 package de.nulide.shiftcal.logic.object;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -21,12 +24,55 @@ public class ShiftCalendar {
         this.calendar = calendar;
     }
 
-    public void addCalendar(WorkDay wd) {
+    public void addWday(WorkDay wd) {
         this.calendar.add(wd);
     }
 
     public LinkedList<Shift> getShifts() {
         return shifts;
+    }
+
+    public Shift getShiftBySname(String sname){
+        Shift s = new Shift();
+        for(int i = 0; i<this.shifts.size(); i++){
+            if(this.shifts.get(i).getShort_name().equals(sname)){
+                s = this.shifts.get(i);
+                i = this.shifts.size();
+            }
+        }
+        return s;
+    }
+
+    public boolean checkIfWork(CalendarDay day){
+        for(int i=0; i< this.calendar.size(); i++){
+            if(this.calendar.get(i).checkDate(day)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean checkIfShift(CalendarDay day, Shift s){
+        for(int i=0; i< this.calendar.size(); i++){
+            if(this.calendar.get(i).checkDate(day)){
+                if(this.calendar.get(i).getShift().getName().equals(s.getName())){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public Shift getShiftOf(CalendarDay day){
+        for(int i=0; i< this.calendar.size(); i++){
+            if(this.calendar.get(i).checkDate(day)){
+                return this.calendar.get(i).getShift();
+            }
+        }
+
+        return null;
     }
 
     public void setShifts(LinkedList<Shift> shifts) {
