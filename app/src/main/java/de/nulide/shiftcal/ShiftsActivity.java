@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -19,9 +20,10 @@ import de.nulide.shiftcal.logic.object.ShiftCalendar;
 import de.nulide.shiftcal.logic.utils.CalendarIO;
 import de.nulide.shiftcal.ui.ShiftAdapter;
 
-public class ShiftsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShiftsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     static ShiftCalendar sc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
         ListView listViewShifts = (ListView) findViewById(R.id.listViewShifts);
         listViewShifts.setAdapter(adapter);
+        listViewShifts.setOnItemClickListener(this);
     }
 
     public void updateShifts(){
@@ -48,6 +51,14 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
+        myIntent.putExtra("toedit", -1);
+        startActivity(myIntent);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
+        myIntent.putExtra("toedit", i);
         startActivity(myIntent);
     }
 }
