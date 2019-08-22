@@ -26,10 +26,12 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
 
     private ShiftCalendar sc;
     private int toEditShift = -1;
+    private boolean colorSelected;
+
+    private FloatingActionButton fab;
     private EditText etViewName;
     private EditText etViewSName;
     private Button btnCP;
-    private boolean colorSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +46,8 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
         sc = CalendarIO.readShiftCal();
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = etViewName.getText().toString();
-                String sname = etViewSName.getText().toString();
-
-                if(!name.isEmpty() && !sname.isEmpty() && colorSelected) {
-                    Shift nS = new Shift(name, sname, btnCP.getCurrentTextColor());
-                    if (toEditShift != -1) {
-                        sc.getShifts().set(toEditShift, nS);
-                    } else {
-                        sc.getShifts().add(nS);
-                    }
-                    CalendarIO.writeShiftVal(sc);
-                }else{
-                    Snackbar.make(view, "Error: Not enough Informations!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-        });
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(this);
         etViewName = findViewById(R.id.scEditTextName);
         etViewSName = findViewById(R.id.scEditTextSName);
         btnCP = findViewById(R.id.colorPickerBtn);
@@ -81,26 +64,45 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        ColorPickerDialogBuilder
-                .with(this)
-                .setTitle("Choose color")
-                .initialColor(btnCP.getCurrentTextColor())
-                .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
-                .density(12)
-                .setOnColorSelectedListener(this)
-                .setPositiveButton("ok", new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int lastSelectedColor, Integer[] allColors) {
-                     onColorSelected(lastSelectedColor);
-                    }
-                })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .build()
-                .show();
+        if (view == fab) {
+            String name = etViewName.getText().toString();
+            String sname = etViewSName.getText().toString();
+
+            if (!name.isEmpty() && !sname.isEmpty() && colorSelected) {
+                Shift nS = new Shift(name, sname, btnCP.getCurrentTextColor());
+                if (toEditShift != -1) {
+                    sc.getShifts().set(toEditShift, nS);
+                } else {
+                    sc.getShifts().add(nS);
+                }
+                CalendarIO.writeShiftVal(sc);
+                this.finish();
+            } else {
+                Snackbar.make(view, "Error: Not enough Information!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        } else {
+            ColorPickerDialogBuilder
+                    .with(this)
+                    .setTitle("Choose color")
+                    .initialColor(btnCP.getCurrentTextColor())
+                    .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+                    .density(12)
+                    .setOnColorSelectedListener(this)
+                    .setPositiveButton("ok", new ColorPickerClickListener() {
+                        @Override
+                        public void onClick(DialogInterface d, int lastSelectedColor, Integer[] allColors) {
+                            onColorSelected(lastSelectedColor);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .build()
+                    .show();
+        }
     }
 
     @Override
