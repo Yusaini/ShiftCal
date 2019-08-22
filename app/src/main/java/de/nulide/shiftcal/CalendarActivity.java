@@ -3,40 +3,46 @@ package de.nulide.shiftcal;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.util.TypedValue;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import de.nulide.shiftcal.logic.object.CalendarDate;
+import java.util.ArrayList;
+
 import de.nulide.shiftcal.logic.object.Shift;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
 import de.nulide.shiftcal.logic.object.WorkDay;
 import de.nulide.shiftcal.logic.utils.CalendarIO;
+import de.nulide.shiftcal.ui.ShiftAdapter;
 import de.nulide.shiftcal.ui.ShiftDayViewDecorator;
 import de.nulide.shiftcal.ui.TodayDayViewDecorator;
 
-public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener, AdapterView.OnItemClickListener {
 
     static ShiftCalendar sc;
     static TextView tvName;
+    static Switch switchEdit;
+    private static AlertDialog dialog;
 
     MaterialCalendarView calendar;
 
@@ -71,6 +77,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         calendar.setOnDateChangedListener(this);
         tvName = findViewById(R.id.cTextViewName);
         tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+
+        switchEdit = findViewById(R.id.editSwitch);
+        switchEdit.setChecked(false);
 
         updateCalendar();
         updateTextView();
@@ -116,12 +125,35 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-        updateTextView();
+        if(switchEdit.isChecked()){
+            LayoutInflater inflater = getLayoutInflater();
+            View dialoglayout = inflater.inflate(R.layout.dialog_shift_selector, null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            ListView listViewShifts = (ListView) dialoglayout;
+            ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
+            listViewShifts.setAdapter(adapter);
+            listViewShifts.setOnItemClickListener(this);
+            builder.setView(dialoglayout);
+            dialog = builder.create();
+            dialog.show();
+
+
+        }else {
+            updateTextView();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        updateCalendar();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        sc.getCalendar().add(new WorkDay(calendar.getSelectedDate(),i));
+        dialog.cancel();
+        CalendarIO.writeShiftVal(sc);
         updateCalendar();
     }
 }

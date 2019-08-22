@@ -14,6 +14,12 @@ public class WorkDay implements Serializable {
         this.shift = shift;
     }
 
+    public WorkDay(CalendarDay date, int shift) {
+        CalendarDate day = new CalendarDate(date.getYear(), date.getMonth(), date.getDay());
+        this.date = day;
+        this.shift = shift;
+    }
+
     public CalendarDate getDate() {
         return date;
     }
