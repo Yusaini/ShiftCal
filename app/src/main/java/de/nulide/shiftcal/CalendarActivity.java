@@ -36,6 +36,7 @@ import de.nulide.shiftcal.logic.object.ShiftCalendar;
 import de.nulide.shiftcal.logic.object.WorkDay;
 import de.nulide.shiftcal.logic.utils.CalendarIO;
 import de.nulide.shiftcal.ui.ShiftAdapter;
+import de.nulide.shiftcal.ui.ShiftDayFormatter;
 import de.nulide.shiftcal.ui.ShiftDayViewDecorator;
 import de.nulide.shiftcal.ui.TodayDayViewDecorator;
 
@@ -80,6 +81,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             calendar.addDecorator(new ShiftDayViewDecorator(sc.getShifts().get(i), sc));
         }
         calendar.addDecorator(new TodayDayViewDecorator());
+        calendar.setDayFormatter(new ShiftDayFormatter(sc));
 
     }
 

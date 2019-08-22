@@ -1,8 +1,14 @@
 package de.nulide.shiftcal.ui;
 
 import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.QuoteSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.text.style.TtsSpan;
+
+import androidx.annotation.IntRange;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -32,6 +38,6 @@ public class ShiftDayViewDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(5, shift.getColor()));
+        view.addSpan(new QuoteSpan(shift.getColor()));
     }
 }
