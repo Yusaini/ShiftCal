@@ -10,8 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import de.nulide.shiftcal.logic.object.Shift;
+import de.nulide.shiftcal.logic.object.ShiftCalendar;
+import de.nulide.shiftcal.logic.utils.CalendarIO;
+import de.nulide.shiftcal.ui.ShiftAdapter;
 
 public class ShiftsActivity extends AppCompatActivity implements View.OnClickListener {
+
+    static ShiftCalendar sc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +32,17 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
+
+        updateShifts();
+
+        ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
+        ListView listViewShifts = (ListView) findViewById(R.id.listViewShifts);
+        listViewShifts.setAdapter(adapter);
+    }
+
+    public void updateShifts(){
+        sc = CalendarIO.readShiftCal();
+
     }
 
     @Override

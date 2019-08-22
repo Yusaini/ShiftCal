@@ -28,7 +28,7 @@ import de.nulide.shiftcal.ui.TodayDayViewDecorator;
 
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static ShiftCalendar sc;
+    static ShiftCalendar sc;
 
     MaterialCalendarView calendar;
 
@@ -84,6 +84,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         sc.addWday(new WorkDay(new CalendarDate(2019, 8, 13), f1));
         sc.addWday(new WorkDay(new CalendarDate(2019, 8, 12), s1));
         sc.addWday(new WorkDay(new CalendarDate(2019, 8, 11), s1));
+
 
 
         CalendarIO.writeShiftVal(sc);
