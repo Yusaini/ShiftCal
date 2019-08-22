@@ -43,7 +43,7 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void updateShifts(){
-        sc = CalendarIO.readShiftCal();
+        sc = CalendarIO.readShiftCal(getFilesDir());
         ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
         listViewShifts.setAdapter(adapter);
         listViewShifts.setOnItemClickListener(this);

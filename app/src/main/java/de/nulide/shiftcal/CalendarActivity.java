@@ -53,20 +53,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        PER_WRITE_STORAGE);
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        PER_READ_STORAGE);
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -88,7 +74,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void updateCalendar(){
-        sc = CalendarIO.readShiftCal();
+        sc = CalendarIO.readShiftCal(getFilesDir());
         calendar.removeDecorators();
         for(int i=0; i<sc.getShifts().size();i++){
             calendar.addDecorator(new ShiftDayViewDecorator(sc.getShifts().get(i), sc));
@@ -114,18 +100,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    updateCalendar();
-                } else {
-                    System.exit(0);
-                }
-                return;
-            }
-
-    @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         if(switchEdit.isChecked()){
             LayoutInflater inflater = getLayoutInflater();
@@ -139,7 +113,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             builder.setView(dialoglayout);
             dialog = builder.create();
             dialog.show();
-
 
         }else {
             updateTextView();
@@ -160,7 +133,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             sc.deleteWday(calendar.getSelectedDate());
         }
         dialog.cancel();
-        CalendarIO.writeShiftVal(sc);
+        CalendarIO.writeShiftVal(getFilesDir(), sc);
         updateCalendar();
         updateTextView();
     }

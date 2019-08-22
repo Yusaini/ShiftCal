@@ -43,7 +43,7 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
         Bundle bundle = getIntent().getExtras();
         toEditShift = bundle.getInt("toedit");
 
-        sc = CalendarIO.readShiftCal();
+        sc = CalendarIO.readShiftCal(getFilesDir());
 
 
         fab = findViewById(R.id.fab);
@@ -75,7 +75,7 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     sc.getShifts().add(nS);
                 }
-                CalendarIO.writeShiftVal(sc);
+                CalendarIO.writeShiftVal(getFilesDir(), sc);
                 this.finish();
             } else {
                 Snackbar.make(view, "Error: Not enough Information!", Snackbar.LENGTH_LONG)

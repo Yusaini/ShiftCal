@@ -12,18 +12,16 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 
-import de.nulide.shiftcal.logic.object.Shift;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
 
 public class CalendarIO {
 
-    static final String FILE_NAME = "sc.o";
+    private static final String FILE_NAME = "sc.o";
 
-    public static ShiftCalendar readShiftCal(){
-        File file = new File(new File(Environment.getExternalStorageDirectory(), "ShiftCal"), FILE_NAME);
+    public static ShiftCalendar readShiftCal(File dir){
         ObjectInputStream input;
         try {
-            input = new ObjectInputStream(new FileInputStream(file));
+            input = new ObjectInputStream(new FileInputStream(new File(dir, FILE_NAME)));
             ShiftCalendar readSC = (ShiftCalendar) input.readObject();
             input.close();
             return readSC;
@@ -39,16 +37,13 @@ public class CalendarIO {
         return new ShiftCalendar();
     }
 
-    public static void writeShiftVal(ShiftCalendar sc){
-        File file = new File(new File(Environment.getExternalStorageDirectory(), "ShiftCal"), FILE_NAME);
+    public static void writeShiftVal(File dir, ShiftCalendar sc){
+        File file = new File(dir, FILE_NAME);
         ObjectOutput out = null;
         try {
             if(file.exists()){
                 file.delete();
             }else{
-                if(!file.getParentFile().exists()){
-                    file.mkdirs();
-                }
                 file.createNewFile();
             }
             out = new ObjectOutputStream(new FileOutputStream(file));
