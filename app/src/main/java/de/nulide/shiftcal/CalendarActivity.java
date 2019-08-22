@@ -3,6 +3,7 @@ package de.nulide.shiftcal;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.provider.CalendarContract;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,6 +134,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             ListView listViewShifts = (ListView) dialoglayout;
             ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
             listViewShifts.setAdapter(adapter);
+            adapter.add(new Shift("Delete", "D", Color.RED));
             listViewShifts.setOnItemClickListener(this);
             builder.setView(dialoglayout);
             dialog = builder.create();
@@ -151,9 +154,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        sc.getCalendar().add(new WorkDay(calendar.getSelectedDate(),i));
+        if(i < sc.getShifts().size()) {
+            sc.getCalendar().add(new WorkDay(calendar.getSelectedDate(), i));
+        }else{
+            sc.deleteWday(calendar.getSelectedDate());
+        }
         dialog.cancel();
         CalendarIO.writeShiftVal(sc);
         updateCalendar();
+        updateTextView();
     }
 }

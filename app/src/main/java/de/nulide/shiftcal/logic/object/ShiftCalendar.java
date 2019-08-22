@@ -69,6 +69,19 @@ public class ShiftCalendar implements Serializable {
         return null;
     }
 
+    public int getWdayIDByDate(CalendarDay date){
+        for(int i =0; i<calendar.size(); i++){
+            if(calendar.get(i).checkDate(date)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void deleteWday(CalendarDay date){
+        calendar.remove(getWdayIDByDate(date));
+    }
+
     public void setShifts(LinkedList<Shift> shifts) {
         this.shifts = shifts;
     }
