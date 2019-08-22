@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        tools:srcCompat="@android:drawable/checkbox_on_background" />
+        app:backgroundTint="#97be0e"
+        app:srcCompat="@drawable/ic_done"
+        tools:ignore="VectorDrawableCompat" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
