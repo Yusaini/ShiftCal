@@ -9,14 +9,29 @@
     tools:layout_editor_absoluteY="56dp"
     tools:showIn="@layout/activity_calendar">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mcv_selectionColor="#97be0e"
-        app:mcv_selectionMode="single"
-        app:mcv_showOtherDates="none"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_selectionColor="#97be0e"
+            app:mcv_selectionMode="single"
+            app:mcv_showOtherDates="none"
+            tools:ignore="MissingConstraints">
+
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+        <TextView
+            android:id="@+id/cTextViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

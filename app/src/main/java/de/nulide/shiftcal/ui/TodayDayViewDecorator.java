@@ -1,6 +1,7 @@
 package de.nulide.shiftcal.ui;
 
 import android.graphics.Typeface;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
@@ -24,6 +25,5 @@ public class TodayDayViewDecorator implements DayViewDecorator {
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new StyleSpan(Typeface.BOLD));
-        view.addSpan(new RelativeSizeSpan(1.4f));
     }
 }

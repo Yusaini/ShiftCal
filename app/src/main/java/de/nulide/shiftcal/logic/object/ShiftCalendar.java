@@ -66,7 +66,7 @@ public class ShiftCalendar implements Serializable {
         return false;
     }
 
-    public Shift getShiftOf(CalendarDay day){
+    public Shift getShiftByDate(CalendarDay day){
         for(int i=0; i< this.calendar.size(); i++){
             if(this.calendar.get(i).checkDate(day)){
                 return this.calendar.get(i).getShift();
