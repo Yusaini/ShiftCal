@@ -23,6 +23,7 @@ import de.nulide.shiftcal.ui.ShiftAdapter;
 public class ShiftsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     static ShiftCalendar sc;
+    private ListView listViewShifts;
 
 
     @Override
@@ -35,17 +36,17 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
+        listViewShifts = (ListView) findViewById(R.id.listViewShifts);
         updateShifts();
 
-        ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
-        ListView listViewShifts = (ListView) findViewById(R.id.listViewShifts);
-        listViewShifts.setAdapter(adapter);
-        listViewShifts.setOnItemClickListener(this);
+
     }
 
     public void updateShifts(){
         sc = CalendarIO.readShiftCal();
-
+        ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
+        listViewShifts.setAdapter(adapter);
+        listViewShifts.setOnItemClickListener(this);
     }
 
     @Override
@@ -60,5 +61,11 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
         myIntent.putExtra("toedit", i);
         startActivity(myIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateShifts();
     }
 }

@@ -33,31 +33,24 @@ public class ShiftCalendar implements Serializable {
         return shifts;
     }
 
-    public Shift getShiftBySname(String sname){
+    public int getShiftIDBySName(String sname){
         Shift s = new Shift();
-        for(int i = 0; i<this.shifts.size(); i++){
-            if(this.shifts.get(i).getShort_name().equals(sname)){
-                s = this.shifts.get(i);
-                i = this.shifts.size();
+        for(int i=0; i<shifts.size(); i++){
+            if(shifts.get(i).getShort_name().equals(sname)){
+                return i;
             }
         }
-        return s;
+        return -1;
     }
 
-    public boolean checkIfWork(CalendarDay day){
-        for(int i=0; i< this.calendar.size(); i++){
-            if(this.calendar.get(i).checkDate(day)){
-                return true;
-            }
-        }
-
-        return false;
+    public Shift getShiftById(int id){
+        return shifts.get(id);
     }
 
     public boolean checkIfShift(CalendarDay day, Shift s){
         for(int i=0; i< this.calendar.size(); i++){
             if(this.calendar.get(i).checkDate(day)){
-                if(this.calendar.get(i).getShift().getName().equals(s.getName())){
+                if(getShiftById(this.calendar.get(i).getShift()).getName().equals(s.getName())){
                     return true;
                 }
             }
@@ -69,7 +62,7 @@ public class ShiftCalendar implements Serializable {
     public Shift getShiftByDate(CalendarDay day){
         for(int i=0; i< this.calendar.size(); i++){
             if(this.calendar.get(i).checkDate(day)){
-                return this.calendar.get(i).getShift();
+                return getShiftById(this.calendar.get(i).getShift());
             }
         }
 

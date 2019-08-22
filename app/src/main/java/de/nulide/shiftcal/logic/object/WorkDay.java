@@ -7,9 +7,9 @@ import java.util.Date;
 
 public class WorkDay implements Serializable {
     private CalendarDate date;
-    private Shift shift;
+    private int shift;
 
-    public WorkDay(CalendarDate date, Shift shift) {
+    public WorkDay(CalendarDate date, int shift) {
         this.date = date;
         this.shift = shift;
     }
@@ -22,11 +22,11 @@ public class WorkDay implements Serializable {
         this.date = date;
     }
 
-    public Shift getShift() {
+    public int getShift() {
         return shift;
     }
 
-    public void setShift(Shift shift) {
+    public void setShift(int shift) {
         this.shift = shift;
     }
 

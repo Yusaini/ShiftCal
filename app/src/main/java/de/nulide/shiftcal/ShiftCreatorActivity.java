@@ -75,6 +75,7 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
             etViewName.setText(sc.getShifts().get(toEditShift).getName());
             etViewSName.setText(sc.getShifts().get(toEditShift).getShort_name());
             btnCP.setTextColor(sc.getShifts().get(toEditShift).getColor());
+            colorSelected = true;
         }
     }
 
