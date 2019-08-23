@@ -21,6 +21,9 @@ import androidx.core.content.ContextCompat;
 import android.provider.CalendarContract;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -68,7 +71,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
 
         switchEdit = findViewById(R.id.editSwitch);
-        switchEdit.setChecked(false);
 
         updateCalendar();
         updateTextView();

@@ -1,15 +1,6 @@
 package de.nulide.shiftcal.logic.object;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.provider.CalendarContract;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.io.Serializable;
 
