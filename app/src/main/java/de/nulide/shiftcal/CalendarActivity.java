@@ -122,6 +122,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
         updateCalendar();
+        switchEdit.setChecked(false);
     }
 
     @Override
