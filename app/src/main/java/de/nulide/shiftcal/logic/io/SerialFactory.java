@@ -52,13 +52,13 @@ public class SerialFactory {
     }
 
     public static SerialShift convertShiftToSerial(Shift s) {
-        return new SerialShift(s.getName(), s.getShort_name(),
+        return new SerialShift(s.getName(), s.getShort_name(), s.getId(),
                 convertShiftTimeToSerial(s.getStartTime()), convertShiftTimeToSerial(s.getEndTime()),
                 s.getColor());
     }
 
     public static Shift convertSerialToShift(SerialShift ss) {
-        return new Shift(ss.getName(), ss.getShort_name(),
+        return new Shift(ss.getName(), ss.getShort_name(), ss.getId(),
                 convertSerialToShiftTime(ss.getStartTime()), convertSerialToShiftTime(ss.getEndTime()),
                 ss.getColor());
     }

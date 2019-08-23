@@ -5,13 +5,15 @@ import android.graphics.Color;
 public class Shift {
     private String name;
     private String short_name;
+    private int id;
     private ShiftTime startTime;
     private ShiftTime endTime;
     private int color;
 
-    public Shift(String name, String short_name, ShiftTime startTime, ShiftTime endTime, int color) {
+    public Shift(String name, String short_name, int id, ShiftTime startTime, ShiftTime endTime, int color) {
         this.name = name;
         this.short_name = short_name;
+        this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.color = color;
@@ -39,6 +41,14 @@ public class Shift {
 
     public void setShort_name(String short_name) {
         this.short_name = short_name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getColor() {

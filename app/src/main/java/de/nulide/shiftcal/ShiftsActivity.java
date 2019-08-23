@@ -2,6 +2,8 @@ package de.nulide.shiftcal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -35,6 +37,8 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         fab.setOnClickListener(this);
 
         listViewShifts = findViewById(R.id.listViewShifts);
+        registerForContextMenu(listViewShifts);
+        listViewShifts.setOnItemClickListener(this);
         updateShifts();
 
 
@@ -44,7 +48,7 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         sc = CalendarIO.readShiftCal(getFilesDir());
         ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
         listViewShifts.setAdapter(adapter);
-        listViewShifts.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -57,8 +61,37 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
-        myIntent.putExtra("toedit", i);
+        myIntent.putExtra("toedit", sc.getShifts().get(i).getId());
         startActivity(myIntent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select The Action");
+        menu.add(0, v.getId(), 0, "Edit");
+        menu.add(0, v.getId(), 0, "Delete");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int index=info.position;
+        if(item.getTitle()=="Edit")
+        {
+            Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
+            myIntent.putExtra("toedit", sc.getShifts().get(index).getId());
+            startActivity(myIntent);
+        }
+        else if(item.getTitle()=="Delete")
+        {
+
+        }else {
+            return false;
+        }
+        return true;
+
+
     }
 
     @Override

@@ -75,11 +75,11 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
         btnCP.setTextColor(Color.GREEN);
 
         if (toEditShift != -1) {
-            etViewName.setText(sc.getShifts().get(toEditShift).getName());
-            etViewSName.setText(sc.getShifts().get(toEditShift).getShort_name());
-            btnCP.setTextColor(sc.getShifts().get(toEditShift).getColor());
-            stStart = sc.getShifts().get(toEditShift).getStartTime();
-            stEnd = sc.getShifts().get(toEditShift).getEndTime();
+            etViewName.setText(sc.getShiftById(toEditShift).getName());
+            etViewSName.setText(sc.getShiftById(toEditShift).getShort_name());
+            btnCP.setTextColor(sc.getShiftById(toEditShift).getColor());
+            stStart = sc.getShiftById(toEditShift).getStartTime();
+            stEnd = sc.getShiftById(toEditShift).getEndTime();
             colorSelected = true;
         }
     }
@@ -91,9 +91,10 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
             String sname = etViewSName.getText().toString();
 
             if (!name.isEmpty() && !sname.isEmpty() && stStart != null && stEnd != null && colorSelected) {
-                Shift nS = new Shift(name, sname, stStart, stEnd, btnCP.getCurrentTextColor());
+                Shift nS = new Shift(name, sname, sc.getNextShiftId(), stStart, stEnd, btnCP.getCurrentTextColor());
                 if (toEditShift != -1) {
-                    sc.getShifts().set(toEditShift, nS);
+                    nS.setId(sc.getShiftById(toEditShift).getId());
+                    sc.setShift(toEditShift, nS);
                 } else {
                     sc.getShifts().add(nS);
                 }

@@ -8,10 +8,12 @@ public class ShiftCalendar {
 
     private LinkedList<WorkDay> calendar;
     private LinkedList<Shift> shifts;
+    private int nextShiftId;
 
     public ShiftCalendar() {
         calendar = new LinkedList<>();
         shifts = new LinkedList<>();
+        nextShiftId = 0;
     }
 
     public LinkedList<WorkDay> getCalendar() {
@@ -34,6 +36,14 @@ public class ShiftCalendar {
         this.shifts = shifts;
     }
 
+    public void deleteWorkDaysWithShift(int id){
+        for(int i = calendar.size()-1; i>=0; i--){
+            if(calendar.get(i).getShift() == id){
+                calendar.remove(i);
+            }
+        }
+    }
+
     public int getShiftIDBySName(String sname) {
         Shift s = new Shift();
         for (int i = 0; i < shifts.size(); i++) {
@@ -45,7 +55,13 @@ public class ShiftCalendar {
     }
 
     public Shift getShiftById(int id) {
-        return shifts.get(id);
+        Shift s = new Shift();
+        for (int i = 0; i < shifts.size(); i++) {
+            if (shifts.get(i).getId() == id) {
+                return shifts.get(i);
+            }
+        }
+        return s;
     }
 
     public boolean checkIfShift(CalendarDay day, Shift s) {
@@ -92,7 +108,27 @@ public class ShiftCalendar {
         return false;
     }
 
+    public void setShift(int id, Shift s){
+        for(int i=0; i<shifts.size(); i++){
+            if(shifts.get(i).getId() == id){
+                shifts.set(i, s);
+                return;
+            }
+        }
+    }
+
     public void addShift(Shift s) {
         shifts.add(s);
+        if(s.getId() >= nextShiftId){
+            nextShiftId++;
+        }
+    }
+
+    public int getNextShiftId() {
+        return nextShiftId;
+    }
+
+    public void setNextShiftId(int nextShiftId) {
+        this.nextShiftId = nextShiftId;
     }
 }

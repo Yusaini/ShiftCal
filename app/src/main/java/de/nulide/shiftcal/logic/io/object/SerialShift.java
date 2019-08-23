@@ -6,13 +6,15 @@ public class SerialShift implements Serializable {
 
     private String name;
     private String short_name;
+    private int id;
     private SerialShiftTime startTime;
     private SerialShiftTime endTime;
     private int color;
 
-    public SerialShift(String name, String short_name, SerialShiftTime startTime, SerialShiftTime endTime, int color) {
+    public SerialShift(String name, String short_name, int id, SerialShiftTime startTime, SerialShiftTime endTime, int color) {
         this.name = name;
         this.short_name = short_name;
+        this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.color = color;
@@ -32,6 +34,14 @@ public class SerialShift implements Serializable {
 
     public void setShort_name(String short_name) {
         this.short_name = short_name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public SerialShiftTime getStartTime() {
