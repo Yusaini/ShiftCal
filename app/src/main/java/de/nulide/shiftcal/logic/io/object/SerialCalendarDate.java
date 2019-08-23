@@ -1,26 +1,18 @@
-package de.nulide.shiftcal.logic.object;
-
-import com.prolificinteractive.materialcalendarview.CalendarDay;
+package de.nulide.shiftcal.logic.io.object;
 
 import java.io.Serializable;
 
-public class CalendarDate{
+public class SerialCalendarDate implements Serializable {
 
     private int year;
     private int month;
     private int day;
 
-    public CalendarDate(int year, int month, int day) {
+    public SerialCalendarDate(int year, int month, int day) {
         this.year = year;
         this.month = month;
         this.day = day;
     }
-    public CalendarDate(CalendarDay day) {
-        this.year = day.getYear();
-        this.month = day.getMonth();
-        this.day = day.getDay();
-    }
-
 
     public int getYear() {
         return year;

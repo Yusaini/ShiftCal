@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +24,7 @@ import android.widget.TimePicker;
 import de.nulide.shiftcal.logic.object.Shift;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
 import de.nulide.shiftcal.logic.object.ShiftTime;
-import de.nulide.shiftcal.logic.utils.CalendarIO;
+import de.nulide.shiftcal.logic.io.CalendarIO;
 
 public class ShiftCreatorActivity extends AppCompatActivity implements View.OnClickListener, OnColorSelectedListener, TimePickerDialog.OnTimeSetListener {
 

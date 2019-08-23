@@ -5,7 +5,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import java.io.Serializable;
 import java.util.Date;
 
-public class WorkDay implements Serializable {
+public class WorkDay {
     private CalendarDate date;
     private int shift;
 

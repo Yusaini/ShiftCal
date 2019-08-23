@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class ShiftCalendar implements Serializable {
+public class ShiftCalendar {
 
     private LinkedList<WorkDay> calendar;
     private LinkedList<Shift> shifts;

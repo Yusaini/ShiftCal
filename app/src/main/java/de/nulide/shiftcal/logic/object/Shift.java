@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 import java.io.Serializable;
 
-public class Shift implements Serializable {
+public class Shift {
     private String name;
     private String short_name;
     private ShiftTime startTime;

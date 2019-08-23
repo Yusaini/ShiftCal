@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class ShiftTime implements Serializable {
+public class ShiftTime {
 
     private int hour;
     private int minute;

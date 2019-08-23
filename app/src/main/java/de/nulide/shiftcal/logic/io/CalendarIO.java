@@ -1,6 +1,6 @@
-package de.nulide.shiftcal.logic.utils;
+package de.nulide.shiftcal.logic.io;
 
-import android.os.Environment;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,8 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 
+import de.nulide.shiftcal.logic.io.object.SerialShift;
+import de.nulide.shiftcal.logic.io.object.SerialShiftCalendar;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
 
 public class CalendarIO {
@@ -22,9 +24,9 @@ public class CalendarIO {
         ObjectInputStream input;
         try {
             input = new ObjectInputStream(new FileInputStream(new File(dir, FILE_NAME)));
-            ShiftCalendar readSC = (ShiftCalendar) input.readObject();
+            SerialShiftCalendar readSC = (SerialShiftCalendar) input.readObject();
             input.close();
-            return readSC;
+            return SerialFactory.convertSerialToShiftCalendar(readSC);
         } catch (StreamCorruptedException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -47,7 +49,7 @@ public class CalendarIO {
                 file.createNewFile();
             }
             out = new ObjectOutputStream(new FileOutputStream(file));
-            out.writeObject(sc);
+            out.writeObject(SerialFactory.convertShiftCalendarToSerial(sc));
             out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
