@@ -83,8 +83,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         if (sel != null) {
             tvName.setTextColor(sel.getColor());
             tvName.setText(sel.getName());
-            tvST.setText(sel.getStartTime().toString());
-            tvET.setText(sel.getEndTime().toString());
+            tvST.setText("Start Time: " + sel.getStartTime().toString());
+            tvET.setText("End Time: " +sel.getEndTime().toString());
         } else {
             tvName.setText("");
             tvST.setText("");
