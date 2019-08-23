@@ -19,10 +19,7 @@ public class ShiftDayViewDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        if(sc.checkIfShift(day, shift)){
-            return true;
-        }
-        return false;
+        return sc.checkIfShift(day, shift);
     }
 
     @Override

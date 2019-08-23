@@ -2,21 +2,20 @@ package de.nulide.shiftcal;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
+import de.nulide.shiftcal.logic.io.CalendarIO;
 import de.nulide.shiftcal.logic.object.Shift;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
-import de.nulide.shiftcal.logic.io.CalendarIO;
 import de.nulide.shiftcal.ui.ShiftAdapter;
 
 public class ShiftsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -35,13 +34,13 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-        listViewShifts = (ListView) findViewById(R.id.listViewShifts);
+        listViewShifts = findViewById(R.id.listViewShifts);
         updateShifts();
 
 
     }
 
-    public void updateShifts(){
+    public void updateShifts() {
         sc = CalendarIO.readShiftCal(getFilesDir());
         ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
         listViewShifts.setAdapter(adapter);

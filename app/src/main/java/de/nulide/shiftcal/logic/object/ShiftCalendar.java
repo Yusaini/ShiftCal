@@ -2,10 +2,7 @@ package de.nulide.shiftcal.logic.object;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.Map;
 
 public class ShiftCalendar {
 
@@ -33,24 +30,28 @@ public class ShiftCalendar {
         return shifts;
     }
 
-    public int getShiftIDBySName(String sname){
+    public void setShifts(LinkedList<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public int getShiftIDBySName(String sname) {
         Shift s = new Shift();
-        for(int i=0; i<shifts.size(); i++){
-            if(shifts.get(i).getShort_name().equals(sname)){
+        for (int i = 0; i < shifts.size(); i++) {
+            if (shifts.get(i).getShort_name().equals(sname)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public Shift getShiftById(int id){
+    public Shift getShiftById(int id) {
         return shifts.get(id);
     }
 
-    public boolean checkIfShift(CalendarDay day, Shift s){
-        for(int i=0; i< this.calendar.size(); i++){
-            if(this.calendar.get(i).checkDate(day)){
-                if(getShiftById(this.calendar.get(i).getShift()).getName().equals(s.getName())){
+    public boolean checkIfShift(CalendarDay day, Shift s) {
+        for (int i = 0; i < this.calendar.size(); i++) {
+            if (this.calendar.get(i).checkDate(day)) {
+                if (getShiftById(this.calendar.get(i).getShift()).getName().equals(s.getName())) {
                     return true;
                 }
             }
@@ -59,9 +60,9 @@ public class ShiftCalendar {
         return false;
     }
 
-    public Shift getShiftByDate(CalendarDay day){
-        for(int i=0; i< this.calendar.size(); i++){
-            if(this.calendar.get(i).checkDate(day)){
+    public Shift getShiftByDate(CalendarDay day) {
+        for (int i = 0; i < this.calendar.size(); i++) {
+            if (this.calendar.get(i).checkDate(day)) {
                 return getShiftById(this.calendar.get(i).getShift());
             }
         }
@@ -69,32 +70,29 @@ public class ShiftCalendar {
         return null;
     }
 
-    public int getWdayIDByDate(CalendarDay date){
-        for(int i =0; i<calendar.size(); i++){
-            if(calendar.get(i).checkDate(date)){
+    public int getWdayIDByDate(CalendarDay date) {
+        for (int i = 0; i < calendar.size(); i++) {
+            if (calendar.get(i).checkDate(date)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void deleteWday(CalendarDay date){
+    public void deleteWday(CalendarDay date) {
         calendar.remove(getWdayIDByDate(date));
     }
 
-    public boolean hasWork(CalendarDay date){
-        for(int i=0; i<calendar.size(); i++){
-            if(calendar.get(i).checkDate(date)){
+    public boolean hasWork(CalendarDay date) {
+        for (int i = 0; i < calendar.size(); i++) {
+            if (calendar.get(i).checkDate(date)) {
                 return true;
             }
         }
         return false;
     }
-    public void setShifts(LinkedList<Shift> shifts) {
-        this.shifts = shifts;
-    }
 
-    public void addShift(Shift s){
+    public void addShift(Shift s) {
         shifts.add(s);
     }
 }

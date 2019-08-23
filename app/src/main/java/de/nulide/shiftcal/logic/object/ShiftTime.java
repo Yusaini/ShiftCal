@@ -2,8 +2,6 @@ package de.nulide.shiftcal.logic.object;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
-
 public class ShiftTime {
 
     private int hour;
@@ -35,18 +33,18 @@ public class ShiftTime {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         int hourLength = (int) (Math.log10(hour) + 1);
-        if(hour == 0){
+        if (hour == 0) {
             hourLength = 1;
         }
         int minuteLength = (int) (Math.log10(minute) + 1);
-        if(minute == 0){
+        if (minute == 0) {
             minuteLength = 1;
         }
-        if (hourLength == 1){
+        if (hourLength == 1) {
             sb.append(0);
         }
         sb.append(hour).append(":");
-        if(minuteLength == 1){
+        if (minuteLength == 1) {
             sb.append(0);
         }
         sb.append(minute);

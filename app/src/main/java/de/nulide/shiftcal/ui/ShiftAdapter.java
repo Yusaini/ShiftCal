@@ -35,10 +35,10 @@ public class ShiftAdapter extends ArrayAdapter<Shift> {
 
         View rowView = inflater.inflate(R.layout.row_shift, parent, false);
 
-        TextView tvSName = (TextView) rowView.findViewById(R.id.textViewSName);
-        TextView tvName = (TextView) rowView.findViewById(R.id.textViewName);
+        TextView tvSName = rowView.findViewById(R.id.textViewSName);
+        TextView tvName = rowView.findViewById(R.id.textViewName);
 
-        tvSName.setText(shifts.get(position).getShort_name()+ " ");
+        tvSName.setText(shifts.get(position).getShort_name() + " ");
         tvSName.setTextColor(shifts.get(position).getColor());
         tvSName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 39f);
         tvSName.setTypeface(null, Typeface.BOLD);

@@ -2,9 +2,6 @@ package de.nulide.shiftcal.logic.object;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-import java.io.Serializable;
-import java.util.Date;
-
 public class WorkDay {
     private CalendarDate date;
     private int shift;
@@ -36,12 +33,10 @@ public class WorkDay {
         this.shift = shift;
     }
 
-    public boolean checkDate(CalendarDay d){
-        if(this.date.getYear() == d.getYear()){
-            if(this.date.getMonth() == d.getMonth()){
-                if(this.date.getDay() == d.getDay()) {
-                    return true;
-                }
+    public boolean checkDate(CalendarDay d) {
+        if (this.date.getYear() == d.getYear()) {
+            if (this.date.getMonth() == d.getMonth()) {
+                return this.date.getDay() == d.getDay();
             }
         }
         return false;

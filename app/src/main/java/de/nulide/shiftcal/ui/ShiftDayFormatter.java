@@ -19,9 +19,9 @@ public class ShiftDayFormatter implements DayFormatter {
     @NonNull
     @Override
     public String format(@NonNull CalendarDay day) {
-        String format = "" +day.getDay();
+        String format = "" + day.getDay();
         Shift s = sc.getShiftByDate(day);
-        if(s != null) {
+        if (s != null) {
             format += "\n" + s.getShort_name();
         }
         return format;

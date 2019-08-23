@@ -2,8 +2,6 @@ package de.nulide.shiftcal.logic.object;
 
 import android.graphics.Color;
 
-import java.io.Serializable;
-
 public class Shift {
     private String name;
     private String short_name;
@@ -19,11 +17,11 @@ public class Shift {
         this.color = color;
     }
 
-    public Shift(){
+    public Shift() {
         this.name = "Error";
         this.short_name = "err";
         startTime = new ShiftTime(0, 0);
-        endTime = new ShiftTime(0,0);
+        endTime = new ShiftTime(0, 0);
         this.color = Color.BLACK;
     }
 
