@@ -46,7 +46,7 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
 
     public void updateShifts() {
         sc = CalendarIO.readShiftCal(getFilesDir());
-        ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
+        ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShiftList()));
         listViewShifts.setAdapter(adapter);
 
     }
@@ -61,7 +61,7 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
-        myIntent.putExtra("toedit", sc.getShifts().get(i).getId());
+        myIntent.putExtra("toedit", sc.getShiftByIndex(i).getId());
         startActivity(myIntent);
     }
 
@@ -73,20 +73,19 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-        int index=info.position;
-        if(item.getTitle()=="Edit")
-        {
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int index = info.position;
+        if (item.getTitle() == "Edit") {
             Intent myIntent = new Intent(this, ShiftCreatorActivity.class);
-            myIntent.putExtra("toedit", sc.getShifts().get(index).getId());
+            myIntent.putExtra("toedit", sc.getShiftByIndex(index).getId());
             startActivity(myIntent);
-        }
-        else if(item.getTitle()=="Delete")
-        {
-
-        }else {
+        } else if (item.getTitle() == "Delete") {
+            sc.deleteWorkDaysWithShift(sc.getShiftByIndex(index).getId());
+            sc.deleteShiftByIndex(index);
+            CalendarIO.writeShiftVal(getFilesDir(), sc);
+            updateShifts();
+        } else {
             return false;
         }
         return true;

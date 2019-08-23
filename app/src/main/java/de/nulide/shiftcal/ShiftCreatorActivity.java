@@ -96,7 +96,7 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
                     nS.setId(sc.getShiftById(toEditShift).getId());
                     sc.setShift(toEditShift, nS);
                 } else {
-                    sc.getShifts().add(nS);
+                    sc.addShift(nS);
                 }
                 CalendarIO.writeShiftVal(getFilesDir(), sc);
                 this.finish();

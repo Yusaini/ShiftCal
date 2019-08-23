@@ -16,42 +16,20 @@ public class ShiftCalendar {
         nextShiftId = 0;
     }
 
-    public LinkedList<WorkDay> getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(LinkedList<WorkDay> calendar) {
-        this.calendar = calendar;
+    public LinkedList<Shift> getShiftList() {
+        return shifts;
     }
 
     public void addWday(WorkDay wd) {
         this.calendar.add(wd);
     }
 
-    public LinkedList<Shift> getShifts() {
-        return shifts;
-    }
-
-    public void setShifts(LinkedList<Shift> shifts) {
-        this.shifts = shifts;
-    }
-
-    public void deleteWorkDaysWithShift(int id){
-        for(int i = calendar.size()-1; i>=0; i--){
-            if(calendar.get(i).getShift() == id){
+    public void deleteWorkDaysWithShift(int id) {
+        for (int i = calendar.size() - 1; i >= 0; i--) {
+            if (calendar.get(i).getShift() == id) {
                 calendar.remove(i);
             }
         }
-    }
-
-    public int getShiftIDBySName(String sname) {
-        Shift s = new Shift();
-        for (int i = 0; i < shifts.size(); i++) {
-            if (shifts.get(i).getShort_name().equals(sname)) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public Shift getShiftById(int id) {
@@ -62,6 +40,57 @@ public class ShiftCalendar {
             }
         }
         return s;
+    }
+
+    public Shift getShiftByIndex(int i) {
+        return shifts.get(i);
+    }
+
+    public Shift getShiftByDate(CalendarDay day) {
+        for (int i = 0; i < this.calendar.size(); i++) {
+            if (this.calendar.get(i).checkDate(day)) {
+                return getShiftById(this.calendar.get(i).getShift());
+            }
+        }
+
+        return null;
+    }
+
+    public void deleteShift(int id) {
+        for (int i = 0; i < shifts.size(); i++) {
+            if (shifts.get(i).getId() == id) {
+                shifts.remove(i);
+                return;
+            }
+        }
+    }
+
+    public void deleteShiftByIndex(int i) {
+        shifts.remove(i);
+    }
+
+    public void setShift(int id, Shift s) {
+        for (int i = 0; i < shifts.size(); i++) {
+            if (shifts.get(i).getId() == id) {
+                shifts.set(i, s);
+                return;
+            }
+        }
+    }
+
+    public void addShift(Shift s) {
+        shifts.add(s);
+        if (s.getId() >= nextShiftId) {
+            nextShiftId++;
+        }
+    }
+
+    public int getShiftsSize() {
+        return shifts.size();
+    }
+
+    public int getNextShiftId() {
+        return nextShiftId;
     }
 
     public boolean checkIfShift(CalendarDay day, Shift s) {
@@ -76,14 +105,12 @@ public class ShiftCalendar {
         return false;
     }
 
-    public Shift getShiftByDate(CalendarDay day) {
-        for (int i = 0; i < this.calendar.size(); i++) {
-            if (this.calendar.get(i).checkDate(day)) {
-                return getShiftById(this.calendar.get(i).getShift());
-            }
-        }
+    public int getCalendarSize() {
+        return calendar.size();
+    }
 
-        return null;
+    public WorkDay getWdayByIndex(int i) {
+        return calendar.get(i);
     }
 
     public int getWdayIDByDate(CalendarDay date) {
@@ -108,27 +135,4 @@ public class ShiftCalendar {
         return false;
     }
 
-    public void setShift(int id, Shift s){
-        for(int i=0; i<shifts.size(); i++){
-            if(shifts.get(i).getId() == id){
-                shifts.set(i, s);
-                return;
-            }
-        }
-    }
-
-    public void addShift(Shift s) {
-        shifts.add(s);
-        if(s.getId() >= nextShiftId){
-            nextShiftId++;
-        }
-    }
-
-    public int getNextShiftId() {
-        return nextShiftId;
-    }
-
-    public void setNextShiftId(int nextShiftId) {
-        this.nextShiftId = nextShiftId;
-    }
 }

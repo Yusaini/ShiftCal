@@ -70,8 +70,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     public void updateCalendar() {
         sc = CalendarIO.readShiftCal(getFilesDir());
         calendar.removeDecorators();
-        for (int i = 0; i < sc.getShifts().size(); i++) {
-            calendar.addDecorator(new ShiftDayViewDecorator(sc.getShifts().get(i), sc));
+        for (int i = 0; i < sc.getShiftsSize(); i++) {
+            calendar.addDecorator(new ShiftDayViewDecorator(sc.getShiftByIndex(i), sc));
         }
         calendar.addDecorator(new TodayDayViewDecorator());
         calendar.setDayFormatter(new ShiftDayFormatter(sc));
@@ -84,7 +84,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             tvName.setTextColor(sel.getColor());
             tvName.setText(sel.getName());
             tvST.setText("Start Time: " + sel.getStartTime().toString());
-            tvET.setText("End Time: " +sel.getEndTime().toString());
+            tvET.setText("End Time: " + sel.getEndTime().toString());
         } else {
             tvName.setText("");
             tvST.setText("");
@@ -105,7 +105,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             View dialoglayout = inflater.inflate(R.layout.dialog_shift_selector, null);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             ListView listViewShifts = (ListView) dialoglayout;
-            ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
+            ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShiftList()));
             listViewShifts.setAdapter(adapter);
             adapter.add(new Shift("Delete", "D", -1, null, null, Color.RED));
             listViewShifts.setOnItemClickListener(this);
@@ -122,13 +122,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
         updateCalendar();
+        updateTextView();
         switchEdit.setChecked(false);
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (i < sc.getShifts().size()) {
-            sc.getCalendar().add(new WorkDay(calendar.getSelectedDate(), i));
+        if (i < sc.getShiftsSize()) {
+            sc.addWday(new WorkDay(calendar.getSelectedDate(), sc.getShiftByIndex(i).getId()));
         } else {
             if (sc.hasWork(calendar.getSelectedDate())) {
                 sc.deleteWday(calendar.getSelectedDate());

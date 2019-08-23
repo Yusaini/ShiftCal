@@ -15,11 +15,11 @@ public class SerialFactory {
 
     public static SerialShiftCalendar convertShiftCalendarToSerial(ShiftCalendar sc) {
         SerialShiftCalendar ssc = new SerialShiftCalendar();
-        for (int i = 0; i < sc.getShifts().size(); i++) {
-            ssc.getShifts().add(convertShiftToSerial(sc.getShifts().get(i)));
+        for (int i = 0; i < sc.getShiftsSize(); i++) {
+            ssc.getShifts().add(convertShiftToSerial(sc.getShiftByIndex(i)));
         }
-        for (int i = 0; i < sc.getCalendar().size(); i++) {
-            ssc.getCalendar().add(convertWorkDayToSerial(sc.getCalendar().get(i)));
+        for (int i = 0; i < sc.getCalendarSize(); i++) {
+            ssc.getCalendar().add(convertWorkDayToSerial(sc.getWdayByIndex(i)));
         }
         return ssc;
     }
@@ -27,10 +27,10 @@ public class SerialFactory {
     public static ShiftCalendar convertSerialToShiftCalendar(SerialShiftCalendar ssc) {
         ShiftCalendar sc = new ShiftCalendar();
         for (int i = 0; i < ssc.getShifts().size(); i++) {
-            sc.getShifts().add(convertSerialToShift(ssc.getShifts().get(i)));
+            sc.addShift(convertSerialToShift(ssc.getShifts().get(i)));
         }
         for (int i = 0; i < ssc.getCalendar().size(); i++) {
-            sc.getCalendar().add(convertSerialToWorkDay(ssc.getCalendar().get(i)));
+            sc.addWday(convertSerialToWorkDay(ssc.getCalendar().get(i)));
         }
         return sc;
     }
