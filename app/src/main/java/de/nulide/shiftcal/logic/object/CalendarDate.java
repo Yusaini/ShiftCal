@@ -1,5 +1,7 @@
 package de.nulide.shiftcal.logic.object;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 import java.io.Serializable;
 
 public class CalendarDate implements Serializable {
@@ -13,6 +15,12 @@ public class CalendarDate implements Serializable {
         this.month = month;
         this.day = day;
     }
+    public CalendarDate(CalendarDay day) {
+        this.year = day.getYear();
+        this.month = day.getMonth();
+        this.day = day.getDay();
+    }
+
 
     public int getYear() {
         return year;

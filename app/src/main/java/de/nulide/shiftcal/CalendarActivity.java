@@ -143,7 +143,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         if(i < sc.getShifts().size()) {
             sc.getCalendar().add(new WorkDay(calendar.getSelectedDate(), i));
         }else{
-            sc.deleteWday(calendar.getSelectedDate());
+            if(sc.hasWork(calendar.getSelectedDate())) {
+                sc.deleteWday(calendar.getSelectedDate());
+            }
         }
         dialog.cancel();
         CalendarIO.writeShiftVal(getFilesDir(), sc);
