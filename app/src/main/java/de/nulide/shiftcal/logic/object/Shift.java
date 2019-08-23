@@ -7,17 +7,23 @@ import java.io.Serializable;
 public class Shift implements Serializable {
     private String name;
     private String short_name;
+    private ShiftTime startTime;
+    private ShiftTime endTime;
     private int color;
 
-    public Shift(String name, String short_name, int color) {
+    public Shift(String name, String short_name, ShiftTime startTime, ShiftTime endTime, int color) {
         this.name = name;
         this.short_name = short_name;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.color = color;
     }
 
     public Shift(){
         this.name = "Error";
         this.short_name = "err";
+        startTime = new ShiftTime(0, 0);
+        endTime = new ShiftTime(0,0);
         this.color = Color.BLACK;
     }
 
@@ -45,6 +51,20 @@ public class Shift implements Serializable {
         this.color = color;
     }
 
+    public ShiftTime getStartTime() {
+        return startTime;
+    }
 
+    public void setStartTime(ShiftTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public ShiftTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(ShiftTime endTime) {
+        this.endTime = endTime;
+    }
 }
 

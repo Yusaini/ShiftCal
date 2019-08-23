@@ -47,6 +47,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     static ShiftCalendar sc;
     static TextView tvName;
+    static TextView tvST;
+    static TextView tvET;
+
     static Switch switchEdit;
     private static AlertDialog dialog;
 
@@ -69,6 +72,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         calendar.setOnDateChangedListener(this);
         tvName = findViewById(R.id.cTextViewName);
         tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+        tvST = findViewById(R.id.cTextViewST);
+        tvET = findViewById(R.id.cTextViewET);
 
         switchEdit = findViewById(R.id.editSwitch);
 
@@ -92,8 +97,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         if(sel != null) {
             tvName.setTextColor(sel.getColor());
             tvName.setText(sel.getName());
+            tvST.setText(sel.getStartTime().toString());
+            tvET.setText(sel.getEndTime().toString());
         }else{
             tvName.setText("");
+            tvST.setText("");
+            tvET.setText("");
         }
     }
 
@@ -112,7 +121,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             ListView listViewShifts = (ListView) dialoglayout;
             ShiftAdapter adapter = new ShiftAdapter(this, new ArrayList<Shift>(sc.getShifts()));
             listViewShifts.setAdapter(adapter);
-            adapter.add(new Shift("Delete", "D", Color.RED));
+            adapter.add(new Shift("Delete", "D", null, null, Color.RED));
             listViewShifts.setOnItemClickListener(this);
             builder.setView(dialoglayout);
             dialog = builder.create();
