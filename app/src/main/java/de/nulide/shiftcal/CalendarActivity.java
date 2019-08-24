@@ -129,7 +129,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if (i < sc.getShiftsSize()) {
-            sc.addWday(new WorkDay(calendar.getSelectedDate(), sc.getShiftByIndex(i).getId()));
+            if (!sc.hasWork(calendar.getSelectedDate())) {
+                sc.addWday(new WorkDay(calendar.getSelectedDate(), sc.getShiftByIndex(i).getId()));
+            }
         } else {
             if (sc.hasWork(calendar.getSelectedDate())) {
                 sc.deleteWday(calendar.getSelectedDate());
