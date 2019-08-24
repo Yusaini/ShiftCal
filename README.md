@@ -1,7 +1,14 @@
 # ShiftCal
 
 A FOSS Shift Calendar.
-Simple material design.
+
+## Features
+
+- Create your Shifts
+- Select individual colors
+- View in the calendar
+- Simple material design
+
 
 ## Open Source Library/Assets
 Material Calendar View - https://github.com/Nulide/material-calendarview
