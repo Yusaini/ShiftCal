@@ -22,9 +22,9 @@
                 android:id="@+id/editSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
                 android:checked="false"
-                android:text="Edit"
-                android:layout_gravity="center|end"/>
+                android:text="Edit" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
