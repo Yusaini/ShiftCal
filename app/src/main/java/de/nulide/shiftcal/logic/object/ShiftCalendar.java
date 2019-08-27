@@ -96,7 +96,7 @@ public class ShiftCalendar {
     public boolean checkIfShift(CalendarDay day, Shift s) {
         for (int i = 0; i < this.calendar.size(); i++) {
             if (this.calendar.get(i).checkDate(day)) {
-                if (getShiftById(this.calendar.get(i).getShift()).getName().equals(s.getName())) {
+                if (getShiftById(this.calendar.get(i).getShift()).getId() == s.getId()) {
                     return true;
                 }
             }
