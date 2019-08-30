@@ -8,6 +8,8 @@
         android:id="@+id/textViewSName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxLength="4"
+        android:padding="1mm"
         android:text="TextView" />
 
     <TextView
