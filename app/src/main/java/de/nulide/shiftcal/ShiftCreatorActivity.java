@@ -3,11 +3,11 @@ package de.nulide.shiftcal;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,11 +25,10 @@ import de.nulide.shiftcal.logic.object.Shift;
 import de.nulide.shiftcal.logic.object.ShiftCalendar;
 import de.nulide.shiftcal.logic.object.ShiftTime;
 
-public class ShiftCreatorActivity extends AppCompatActivity implements View.OnClickListener, OnColorSelectedListener, TimePickerDialog.OnTimeSetListener {
+public class ShiftCreatorActivity extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
 
     private ShiftCalendar sc;
     private int toEditShift = -1;
-    private boolean colorSelected;
     private ShiftTime stStart;
     private ShiftTime stEnd;
     private boolean setStartTime = true;
@@ -37,10 +36,8 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
     private FloatingActionButton fab;
     private EditText etViewName;
     private EditText etViewSName;
-    private TextView tvStartTime;
     private Button btnStartTime;
     private Button btnEndTime;
-    private TextView tvEndTime;
     private Button btnCP;
     private TimePickerDialog timePickerST;
     private TimePickerDialog timePickerET;
@@ -56,31 +53,29 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
         toEditShift = bundle.getInt("toedit");
 
         sc = CalendarIO.readShiftCal(getFilesDir());
-        stStart = null;
-        stEnd = null;
+        stStart = new ShiftTime(0, 0);
+        stEnd = new ShiftTime(0,0);
 
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
         etViewName = findViewById(R.id.scEditTextName);
         etViewSName = findViewById(R.id.scEditTextSName);
-        tvStartTime = findViewById(R.id.tvStartTime);
-        tvEndTime = findViewById(R.id.tvEndTime);
-        btnStartTime = findViewById(R.id.setStartTime);
+        btnStartTime = findViewById(R.id.btnStartTime);
         btnStartTime.setOnClickListener(this);
-        btnEndTime = findViewById(R.id.setEndTime);
+        btnEndTime = findViewById(R.id.btnEndTime);
         btnEndTime.setOnClickListener(this);
         btnCP = findViewById(R.id.colorPickerBtn);
         btnCP.setOnClickListener(this);
-        btnCP.setTextColor(Color.GREEN);
+        updateButtonColors(Color.parseColor("#bacc3c"));
 
         if (toEditShift != -1) {
             etViewName.setText(sc.getShiftById(toEditShift).getName());
             etViewSName.setText(sc.getShiftById(toEditShift).getShort_name());
-            btnCP.setTextColor(sc.getShiftById(toEditShift).getColor());
             stStart = sc.getShiftById(toEditShift).getStartTime();
             stEnd = sc.getShiftById(toEditShift).getEndTime();
-            colorSelected = true;
+            updateButtonColors(sc.getShiftById(toEditShift).getColor());
+            updateTime();
         }
     }
 
@@ -90,8 +85,8 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
             String name = etViewName.getText().toString();
             String sname = etViewSName.getText().toString();
 
-            if (!name.isEmpty() && !sname.isEmpty() && stStart != null && stEnd != null && colorSelected) {
-                Shift nS = new Shift(name, sname, sc.getNextShiftId(), stStart, stEnd, btnCP.getCurrentTextColor());
+            if (!name.isEmpty() && !sname.isEmpty()) {
+                Shift nS = new Shift(name, sname, sc.getNextShiftId(), stStart, stEnd, ((ColorDrawable)btnCP.getBackground()).getColor());
                 if (toEditShift != -1) {
                     nS.setId(sc.getShiftById(toEditShift).getId());
                     sc.setShift(toEditShift, nS);
@@ -124,14 +119,13 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
             ColorPickerDialogBuilder
                     .with(this)
                     .setTitle("Choose color")
-                    .initialColor(btnCP.getCurrentTextColor())
+                    .initialColor(((ColorDrawable)btnCP.getBackground()).getColor())
                     .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
                     .density(12)
-                    .setOnColorSelectedListener(this)
                     .setPositiveButton("ok", new ColorPickerClickListener() {
                         @Override
                         public void onClick(DialogInterface d, int lastSelectedColor, Integer[] allColors) {
-                            onColorSelected(lastSelectedColor);
+                            updateButtonColors(lastSelectedColor);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -145,19 +139,38 @@ public class ShiftCreatorActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onColorSelected(int selectedColor) {
-        btnCP.setTextColor(selectedColor);
-        this.colorSelected = true;
-    }
-
-    @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
         if (setStartTime) {
             stStart = new ShiftTime(hour, minute);
-            tvStartTime.setText(stStart.toString());
         } else {
             stEnd = new ShiftTime(hour, minute);
-            tvEndTime.setText(stEnd.toString());
+        }
+        updateTime();
+    }
+
+    public void updateTime(){
+        btnStartTime.setText(stStart.toString());
+        btnEndTime.setText(stEnd.toString());
+    }
+
+    public void updateButtonColors(int color){
+        btnStartTime.setBackgroundColor(color);
+        btnEndTime.setBackgroundColor(color);
+        btnCP.setBackgroundColor(color);
+
+
+        int[] rgb = { Color.red(color), Color.green(color), Color.blue(color) };
+        int brightness = (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
+                * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+
+        if (brightness >= 200) {
+            btnCP.setTextColor(Color.BLACK);
+            btnStartTime.setTextColor(Color.BLACK);
+            btnEndTime.setTextColor(Color.BLACK);
+        }else{
+            btnCP.setTextColor(Color.WHITE);
+            btnStartTime.setTextColor(Color.WHITE);
+            btnEndTime.setTextColor(Color.WHITE);
         }
     }
 }
