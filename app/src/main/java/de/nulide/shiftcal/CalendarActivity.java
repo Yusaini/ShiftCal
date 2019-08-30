@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -16,7 +17,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -32,7 +34,7 @@ import de.nulide.shiftcal.ui.ShiftDayFormatter;
 import de.nulide.shiftcal.ui.ShiftDayViewDecorator;
 import de.nulide.shiftcal.ui.TodayDayViewDecorator;
 
-public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener, AdapterView.OnItemClickListener {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener, AdapterView.OnItemClickListener, FloatingActionsMenu.OnFloatingActionsMenuUpdateListener {
 
     static final int PER_WRITE_STORAGE = 345;
     static final int PER_READ_STORAGE = 346;
@@ -51,7 +53,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionsMenu fabMenu = findViewById(R.id.fab_menu);
+        fabMenu.setOnFloatingActionsMenuUpdateListener(this);
+
+        FloatingActionButton fab = findViewById(R.id.shiftsfab);
         fab.setOnClickListener(this);
         calendar = findViewById(R.id.calendarView);
         calendar.setDateSelected(CalendarDay.today(), true);
@@ -145,4 +150,20 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         updateCalendar();
         updateTextView();
     }
+
+
+    @Override
+    public void onMenuExpanded() {
+        FrameLayout fl = (FrameLayout) findViewById(R.id.CalendarTopLayer);
+        fl.setBackgroundColor(Color.argb(200, 255, 255, 255));
+
+    }
+
+    @Override
+    public void onMenuCollapsed() {
+        FrameLayout fl = (FrameLayout) findViewById(R.id.CalendarTopLayer);
+        fl.setBackgroundColor(Color.TRANSPARENT);
+
+    }
+
 }

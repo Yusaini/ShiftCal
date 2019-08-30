@@ -1,6 +1,7 @@
 package de.nulide.shiftcal;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -11,7 +12,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,9 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_shifts);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -98,4 +102,5 @@ public class ShiftsActivity extends AppCompatActivity implements View.OnClickLis
         super.onResume();
         updateShifts();
     }
+
 }

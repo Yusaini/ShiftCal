@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context=".ShiftCreatorActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,14 +23,15 @@
 
     <include layout="@layout/content_shift_creator" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="#97be0e"
-        app:srcCompat="@drawable/ic_done"
-        tools:ignore="VectorDrawableCompat" />
+        fab:fab_colorNormal="@color/btnColor"
+        fab:fab_colorPressed="@color/btnColorPressed"
+        fab:fab_icon="@drawable/ic_done"
+        fab:fab_title="Settings" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
