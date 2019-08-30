@@ -8,10 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ShiftCreatorActivity"
             android:label="@string/title_activity_shift_creator"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ShiftsActivity"
             android:label="@string/title_activity_shifts"
@@ -27,4 +28,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

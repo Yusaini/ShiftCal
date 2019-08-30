@@ -46,6 +46,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private static AlertDialog dialog;
     MaterialCalendarView calendar;
 
+    FloatingActionButton fab;
+    FloatingActionButton fabSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +59,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         FloatingActionsMenu fabMenu = findViewById(R.id.fab_menu);
         fabMenu.setOnFloatingActionsMenuUpdateListener(this);
 
-        FloatingActionButton fab = findViewById(R.id.shiftsfab);
+        fab = findViewById(R.id.shiftsfab);
         fab.setOnClickListener(this);
+        fabSettings = findViewById(R.id.settingsfab);
+        fabSettings.setOnClickListener(this);
         calendar = findViewById(R.id.calendarView);
         calendar.setDateSelected(CalendarDay.today(), true);
         calendar.setOnDateChangedListener(this);
@@ -99,8 +104,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        Intent myIntent = new Intent(this, ShiftsActivity.class);
-        startActivity(myIntent);
+        Intent myIntent;
+        if(view == fab) {
+            myIntent = new Intent(this, ShiftsActivity.class);
+            startActivity(myIntent);
+        }else{
+            myIntent = new Intent(this, SettingsActivity.class);
+            startActivity(myIntent);
+        }
     }
 
     @Override
