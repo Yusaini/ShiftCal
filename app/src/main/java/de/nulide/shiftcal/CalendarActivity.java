@@ -65,6 +65,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         fab.setOnClickListener(this);
         fabSettings = findViewById(R.id.settingsfab);
         fabSettings.setOnClickListener(this);
+
         calendar = findViewById(R.id.calendarView);
         calendar.setDateSelected(CalendarDay.today(), true);
         calendar.setOnDateChangedListener(this);
