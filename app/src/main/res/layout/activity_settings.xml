@@ -6,49 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/settingslist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="58dp" />
 
-
-        <Button
-            android:id="@+id/btnExportC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Export Calendar"
-            android:textAlignment="textStart"
-            android:layout_marginLeft="2mm"
-            android:layout_marginEnd="2mm"
-            android:textSize="4mm"
-            android:paddingTop="1mm"
-            android:paddingBottom="1mm"
-            android:background="@color/transparent"/>
-        <Button
-            android:id="@+id/btnImportC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Import Calendar"
-            android:textAlignment="textStart"
-            android:layout_marginLeft="2mm"
-            android:layout_marginEnd="2mm"
-            android:textSize="4mm"
-            android:paddingTop="1mm"
-            android:paddingBottom="1mm"
-            android:background="@color/transparent"/>
-
-        <Button
-            android:id="@+id/btnLicense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="License"
-            android:textAlignment="textStart"
-            android:layout_marginLeft="2mm"
-            android:layout_marginEnd="2mm"
-            android:textSize="4mm"
-            android:paddingTop="1mm"
-            android:paddingBottom="1mm"
-            android:background="@color/transparent"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

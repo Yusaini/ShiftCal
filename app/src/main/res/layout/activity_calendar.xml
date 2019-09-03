@@ -52,16 +52,6 @@
             android:layout_marginEnd="16dp">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/shiftsfab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/btnColor"
-                fab:fab_colorPressed="@color/btnColorPressed"
-                fab:fab_icon="@drawable/ic_add"
-                fab:fab_size="mini"
-                fab:fab_title="Add Shift" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/settingsfab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,6 +61,15 @@
                 fab:fab_size="mini"
                 fab:fab_title="Settings" />
 
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/shiftsfab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/btnColor"
+                fab:fab_colorPressed="@color/btnColorPressed"
+                fab:fab_icon="@drawable/ic_add"
+                fab:fab_size="mini"
+                fab:fab_title="Add Shift" />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
     </FrameLayout>

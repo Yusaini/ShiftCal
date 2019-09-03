@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -34,17 +35,21 @@ import de.nulide.shiftcal.ui.ShiftDayFormatter;
 import de.nulide.shiftcal.ui.ShiftDayViewDecorator;
 import de.nulide.shiftcal.ui.TodayDayViewDecorator;
 
-public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener, AdapterView.OnItemClickListener, FloatingActionsMenu.OnFloatingActionsMenuUpdateListener {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener, AdapterView.OnItemClickListener, FloatingActionsMenu.OnFloatingActionsMenuUpdateListener, View.OnTouchListener {
 
-    static final int PER_WRITE_STORAGE = 345;
-    static final int PER_READ_STORAGE = 346;
-    static ShiftCalendar sc;
-    static TextView tvName;
-    static TextView tvST;
-    static TextView tvET;
-    static Switch switchEdit;
+    private static ShiftCalendar sc;
+    private static TextView tvName;
+    private static TextView tvST;
+    private static TextView tvET;
+    private static Switch switchEdit;
+    private static FrameLayout fl;
     private static AlertDialog dialog;
-    MaterialCalendarView calendar;
+    private static MaterialCalendarView calendar;
+
+    private static FloatingActionButton fab;
+    private static FloatingActionButton fabSettings;
+    private static FloatingActionsMenu fabMenu;
+
 
     FloatingActionButton fab;
     FloatingActionButton fabSettings;
@@ -56,13 +61,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionsMenu fabMenu = findViewById(R.id.fab_menu);
+        fabMenu = findViewById(R.id.fab_menu);
         fabMenu.setOnFloatingActionsMenuUpdateListener(this);
 
         fab = findViewById(R.id.shiftsfab);
         fab.setOnClickListener(this);
         fabSettings = findViewById(R.id.settingsfab);
         fabSettings.setOnClickListener(this);
+
         calendar = findViewById(R.id.calendarView);
         calendar.setDateSelected(CalendarDay.today(), true);
         calendar.setOnDateChangedListener(this);
@@ -70,6 +76,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
         tvST = findViewById(R.id.cTextViewST);
         tvET = findViewById(R.id.cTextViewET);
+        fl = findViewById(R.id.CalendarTopLayer);
 
         switchEdit = findViewById(R.id.editSwitch);
 
@@ -140,6 +147,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         updateCalendar();
         updateTextView();
         switchEdit.setChecked(false);
+        fabMenu.collapse();
     }
 
     @Override
@@ -165,16 +173,19 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onMenuExpanded() {
-        FrameLayout fl = (FrameLayout) findViewById(R.id.CalendarTopLayer);
         fl.setBackgroundColor(Color.argb(200, 255, 255, 255));
-
+        fl.setOnTouchListener(this);
     }
 
     @Override
     public void onMenuCollapsed() {
-        FrameLayout fl = (FrameLayout) findViewById(R.id.CalendarTopLayer);
         fl.setBackgroundColor(Color.TRANSPARENT);
-
+        fl.setOnTouchListener(null);
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        fabMenu.collapse();
+        return true;
+    }
 }

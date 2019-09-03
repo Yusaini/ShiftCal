@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
@@ -15,7 +16,41 @@ import de.nulide.shiftcal.logic.object.ShiftCalendar;
 
 public class CalendarIO {
 
-    private static final String FILE_NAME = "sc.o";
+    public static final String FILE_NAME = "sc.o";
+
+    public static void exportShiftCal(File dir, FileOutputStream fos){
+        ObjectOutput out = null;
+        try {
+            ShiftCalendar sc = readShiftCal(dir);
+            out = new ObjectOutputStream(fos);
+            out.writeObject(SerialFactory.convertShiftCalendarToSerial(sc));
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void importShiftCal(File dir, InputStream is){
+        ObjectInputStream input;
+        try {
+            input = new ObjectInputStream(is);
+            SerialShiftCalendar readSC = (SerialShiftCalendar) input.readObject();
+            input.close();
+            ShiftCalendar sc = SerialFactory.convertSerialToShiftCalendar(readSC);
+            writeShiftVal(dir, sc);
+        } catch (StreamCorruptedException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static ShiftCalendar readShiftCal(File dir) {
         ObjectInputStream input;

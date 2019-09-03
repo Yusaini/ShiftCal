@@ -15,7 +15,7 @@ A FOSS Shift Calendar.
 
 ## Open Source Library/Assets
 
-[See Licenses](Licenses.md)
+[See Licenses](ThirdPartyProjects.md)
 
 ## Donate
 
