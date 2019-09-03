@@ -37,8 +37,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
-
         settingsList = findViewById(R.id.settingslist);
         settings = new ArrayList<>();
         listAdapter = new ArrayAdapter<String>(this,
@@ -111,5 +109,4 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             }
         }
     }
-
 }

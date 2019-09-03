@@ -50,7 +50,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private static FloatingActionButton fabSettings;
     private static FloatingActionsMenu fabMenu;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
